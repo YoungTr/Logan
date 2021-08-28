@@ -26,7 +26,7 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile project(':logan')
-//    compile 'com.dianping.android.sdk:logan:1.1.0'
+//    implementation 'com.dianping.android.sdk:logan:1.2.4'
 //    releaseCompile project(path: ':logan', configuration: 'release')
 //    debugCompile project(path: ':logan', configuration: 'debug')
 }

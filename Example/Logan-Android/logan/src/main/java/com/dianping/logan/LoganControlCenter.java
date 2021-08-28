@@ -24,6 +24,7 @@ package com.dianping.logan;
 
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.File;
 import java.text.ParseException;
@@ -65,6 +66,7 @@ class LoganControlCenter {
 
     private void init() {
         if (mLoganThread == null) {
+            Log.d("LoganControlCenter", "cache path: " + mCachePath + ", path: " + mPath);
             mLoganThread = new LoganThread(mCacheLogQueue, mCachePath, mPath, mSaveTime,
                     mMaxLogFile, mMinSDCard, mEncryptKey16, mEncryptIv16);
             mLoganThread.setName("logan-thread");
