@@ -47,4 +47,13 @@ class LoganModel {
         }
         return valid;
     }
+
+    @Override
+    public String toString() {
+        return "LoganModel{" +
+                "action=" + action +
+                ", writeAction=" + writeAction +
+                ", sendAction=" + sendAction +
+                '}';
+    }
 }

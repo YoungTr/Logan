@@ -41,4 +41,14 @@ class SendAction {
         }
         return valid;
     }
+
+    @Override
+    public String toString() {
+        return "SendAction{" +
+                "fileSize=" + fileSize +
+                ", date='" + date + '\'' +
+                ", uploadPath='" + uploadPath + '\'' +
+                ", sendLogRunnable=" + sendLogRunnable +
+                '}';
+    }
 }

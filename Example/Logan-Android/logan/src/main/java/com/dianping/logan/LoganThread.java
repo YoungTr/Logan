@@ -107,9 +107,12 @@ class LoganThread extends Thread {
                     LoganModel model = mCacheLogQueue.poll();
                     if (model == null) {
                         mIsWorking = false;
+                        Log.d(TAG, "sync.waiting....");
                         sync.wait();
+                        Log.d(TAG, "sync.wait end");
                         mIsWorking = true;
                     } else {
+                        Log.d(TAG, "model:" + model);
                         action(model);
                     }
                 } catch (InterruptedException e) {
@@ -204,6 +207,7 @@ class LoganThread extends Thread {
 
         if (!isDay()) {
             long tempCurrentDay = Util.getCurrentTime();
+            Log.d(TAG, "tempCurrentDay:" + tempCurrentDay);
             //save时间
             long deleteTime = tempCurrentDay - mSaveTime;
             deleteExpiredFile(deleteTime);

@@ -45,4 +45,16 @@ class WriteAction {
         }
         return valid;
     }
+
+    @Override
+    public String toString() {
+        return "WriteAction{" +
+                "log='" + log + '\'' +
+                ", isMainThread=" + isMainThread +
+                ", threadId=" + threadId +
+                ", threadName='" + threadName + '\'' +
+                ", localTime=" + localTime +
+                ", flag=" + flag +
+                '}';
+    }
 }

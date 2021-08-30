@@ -70,13 +70,14 @@ public class MainActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logan.w("啊哈哈哈哈66666", 2);
+                Logan.w("啊哈哈哈哈66666" + System.currentTimeMillis(), 2);
             }
         });
         batchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loganTest();
+//                loganTest();
+                Logan.f();
             }
         });
         sendBtn.setOnClickListener(new View.OnClickListener() {
