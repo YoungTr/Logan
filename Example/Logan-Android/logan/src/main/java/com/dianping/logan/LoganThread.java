@@ -127,6 +127,7 @@ class LoganThread extends Thread {
         if (model == null || !model.isValid()) {
             return;
         }
+        Log.d(TAG, "action thread name: " + Thread.currentThread().getName());
         if (mLoganProtocol == null) {
             mLoganProtocol = LoganProtocol.newInstance();
             mLoganProtocol.setOnLoganProtocolStatus(new OnLoganProtocolStatus() {
