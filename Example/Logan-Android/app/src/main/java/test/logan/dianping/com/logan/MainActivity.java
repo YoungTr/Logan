@@ -45,7 +45,7 @@ import java.util.Map;
 
 public class MainActivity extends Activity {
 
-    private static final String TAG = MainActivity.class.getName();
+    private static final String TAG = "LoganTAG_" + MainActivity.class.getName();
 
     private TextView mTvInfo;
     private EditText mEditIp;

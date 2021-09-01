@@ -45,7 +45,7 @@ import javax.net.ssl.SSLSession;
 
 public class SendLogDefaultRunnable extends SendLogRunnable {
 
-    private static final String TAG = "SendLogDefaultRunnable";
+    private static final String TAG = "LoganTAG_SendLogDefaultRunnable";
 
     private final Map<String, String> mRequestHeaders;
     private String mUploadLogUrl;
@@ -57,10 +57,12 @@ public class SendLogDefaultRunnable extends SendLogRunnable {
 
     @Override
     public void sendLog(File logFile) {
+        Log.d(TAG, "logFile:" + logFile);
         doSendFileByAction(logFile, mRequestHeaders, mUploadLogUrl);
         // Must Call finish after send log
         finish();
         if (logFile.getName().contains(".copy")) {
+            Log.d(TAG, "file delete: " + logFile);
             logFile.delete();
         }
     }

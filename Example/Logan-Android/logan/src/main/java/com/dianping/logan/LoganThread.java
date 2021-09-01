@@ -290,9 +290,12 @@ class LoganThread extends Thread {
         }
         if (isFile(action.date)) { //是否有日期文件
             String src = mPath + File.separator + action.date;
+            Log.d(TAG, "src: " + src);
+            // 如果上传的当天的日志，则生成一个副本
             if (action.date.equals(String.valueOf(Util.getCurrentTime()))) {
                 doFlushLog2File();
                 String des = mPath + File.separator + action.date + ".copy";
+                Log.d(TAG, "des: " + des);
                 if (copyFile(src, des)) {
                     action.uploadPath = des;
                     return true;
