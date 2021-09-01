@@ -22,10 +22,14 @@
 
 package com.dianping.logan;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Util {
+
+    private static final String TAG = "LoganTAG_Util";
 
     private static final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -34,6 +38,7 @@ public class Util {
         long tempTime = 0;
         try {
             String dataStr = sDateFormat.format(new Date(currentTime));
+            Log.d(TAG, "Util#getCurrentTime data str: " + dataStr);
             tempTime = sDateFormat.parse(dataStr).getTime();
         } catch (Exception e) {
             e.printStackTrace();

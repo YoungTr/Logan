@@ -33,6 +33,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 class LoganControlCenter {
 
+    private static final String TAG = "LoganTAG_LoganControlCenter";
+
     private static LoganControlCenter sLoganControlCenter;
 
     private ConcurrentLinkedQueue<LoganModel> mCacheLogQueue = new ConcurrentLinkedQueue<>();
@@ -66,7 +68,7 @@ class LoganControlCenter {
 
     private void init() {
         if (mLoganThread == null) {
-            Log.d("LoganControlCenter", "cache path: " + mCachePath + ", path: " + mPath);
+            Log.d(TAG, "cache path: " + mCachePath + ", path: " + mPath);
             mLoganThread = new LoganThread(mCacheLogQueue, mCachePath, mPath, mSaveTime,
                     mMaxLogFile, mMinSDCard, mEncryptKey16, mEncryptIv16);
             mLoganThread.setName("logan-thread");

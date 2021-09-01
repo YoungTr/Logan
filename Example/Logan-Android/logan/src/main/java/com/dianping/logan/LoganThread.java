@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,7 +39,7 @@ import java.util.concurrent.ThreadFactory;
 
 class LoganThread extends Thread {
 
-    private static final String TAG = "LoganThread";
+    private static final String TAG = "LoganTAG_LoganThread";
     private static final int MINUTE = 60 * 1000;
     private static final long LONG = 24 * 60 * 60 * 1000;
     private static final int CACHE_SIZE = 1024;
@@ -178,6 +179,7 @@ class LoganThread extends Thread {
         if (dir.isDirectory()) {
             String[] files = dir.list();
             if (files != null) {
+                Log.d(TAG, "LoganThread#deleteExpiredFile files:" + Arrays.toString(files));
                 for (String item : files) {
                     try {
                         if (TextUtils.isEmpty(item)) {
