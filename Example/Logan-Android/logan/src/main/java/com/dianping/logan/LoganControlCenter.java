@@ -112,6 +112,8 @@ class LoganControlCenter {
             if (mLoganThread != null) {
                 mLoganThread.notifyRun();
             }
+        } else {
+            Log.d(TAG, "drop action");
         }
     }
 
