@@ -28,26 +28,35 @@
 
 //创建MMAP缓存buffer或者内存buffer
 int open_mmap_file_clogan(char *_filepath, unsigned char **buffer, unsigned char **cache) {
+    // filepath == cache_path
     int back = LOGAN_MMAP_FAIL;
     if (NULL == _filepath || 0 == strnlen(_filepath, 128)) {
         back = LOGAN_MMAP_MEMORY;
     } else {
         unsigned char *p_map = NULL;
+        // 150k
         int size = LOGAN_MMAP_LENGTH;
+        // open 打开文件
+        // 若所有欲核查的权限都通过了检查则返回0 值, 表示成功, 只要有一个权限被禁止则返回-1.
         int fd = open(_filepath, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP); //后两个添加权限
         int isNeedCheck = 0; //是否需要检查mmap缓存文件重新检查
         if (fd != -1) { //保护
             int isFileOk = 0;
+            // fopen 打开一个文件并返回文件指针
+            // rb+ 以读/写方式打开一个二进制文件，只允许读/写数据。
             FILE *file = fopen(_filepath, "rb+"); //先判断文件是否有值，再mmap内存映射
             if (NULL != file) {
                 fseek(file, 0, SEEK_END);
                 long longBytes = ftell(file);
                 if (longBytes < LOGAN_MMAP_LENGTH) {
+                    // 如果lagan.mmap2 文件大小小于150k
                     fseek(file, 0, SEEK_SET);
                     char zero_data[size];
                     memset(zero_data, 0, size);
                     size_t _size = 0;
+                    // 把 ptr 所指向的数组中的数据写入到给定流 stream 中
                     _size = fwrite(zero_data, sizeof(char), size, file);
+                    // 刷新流 stream 的输出缓冲区
                     fflush(file);
                     if (_size == size) {
                         printf_clogan("copy data 2 mmap file success\n");
@@ -99,6 +108,7 @@ int open_mmap_file_clogan(char *_filepath, unsigned char **buffer, unsigned char
             } else {
                 back = LOGAN_MMAP_MEMORY;
                 if (NULL != p_map)
+                    // 解除内存映射
                     munmap(p_map, size);
             }
         } else {

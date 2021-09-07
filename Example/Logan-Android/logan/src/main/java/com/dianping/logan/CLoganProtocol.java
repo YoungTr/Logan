@@ -22,6 +22,8 @@
 
 package com.dianping.logan;
 
+import android.util.Log;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -103,6 +105,7 @@ class CLoganProtocol implements LoganProtocolHandler {
 
         try {
             int code = clogan_init(cache_path, dir_path, max_file, encrypt_key_16, encrypt_iv_16);
+            Log.d("CLoganProtocol", "code:" + code);
             mIsLoganInit = true;
             loganStatusCode(ConstantCode.CloganStatus.CLGOAN_INIT_STATUS, code);
         } catch (UnsatisfiedLinkError e) {

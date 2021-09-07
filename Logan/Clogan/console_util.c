@@ -23,8 +23,10 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include "console_util.h"
+#include <android/log.h>
 
-static int is_debug_logan = 0;
+
+static int is_debug_logan = 1;
 
 int printf_clogan(char *fmt, ...) {
     int cnt = 0;
@@ -32,6 +34,7 @@ int printf_clogan(char *fmt, ...) {
         va_list argptr;
         va_start(argptr, fmt);
         cnt = vprintf(fmt, argptr);
+        __android_log_print(ANDROID_LOG_DEBUG, "LoganNative", fmt, argptr);
         va_end(argptr);
     }
     return (cnt);

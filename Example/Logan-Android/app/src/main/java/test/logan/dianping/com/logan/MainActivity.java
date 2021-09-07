@@ -76,8 +76,8 @@ public class MainActivity extends Activity {
         batchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                loganTest();
-                Logan.f();
+                loganTest();
+//                Logan.f();
             }
         });
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
             public void run() {
                 super.run();
                 try {
-                    for (int i = 0; i < 9; i++) {
+                    for (int i = 0; i < 10000; i++) {
                         Log.d(TAG, "times : " + i);
                         Logan.w(String.valueOf(i), 1);
                         Thread.sleep(5);

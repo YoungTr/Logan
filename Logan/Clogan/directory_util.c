@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <malloc.h>
 #include "logan_config.h"
 #include "console_util.h"
 
@@ -47,7 +48,8 @@ int makedir_clogan(const char *path) {
     size_t pathLen = strlen(path);
     char currentPath[LOGAN_MAX_PATH] = {0};
 
-    printf_clogan("makedir_clogan > path : %s\n", path);
+    printf_clogan("makedir_clogan > path :");
+    printf_clogan(path);
     //相对路径
     if ('/' != path[0]) {
         //获取当前路径
@@ -74,7 +76,13 @@ int makedir_clogan(const char *path) {
     for (size_t i = beginCmpPath; i < endCmpPath; i++) {
         if ('/' == currentPath[i]) {
             currentPath[i] = '\0';
+            printf_clogan("currentPath: ");
+            printf_clogan(currentPath);
+            // F_OK 文件是否存在
+            // 若所有欲查核的权限都通过了检查则返回0 值，表示成功，只要有一权限被禁止则返回-1。
             if (access(currentPath, F_OK) != 0) {
+                printf_clogan("mkdir: ");
+                printf_clogan(currentPath);
                 if (mkdir(currentPath, 0777) == -1) {
                     return -1;
                 }

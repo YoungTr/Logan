@@ -113,15 +113,20 @@ void write_mmap_data_clogan(char *path, unsigned char *temp) {
 
 void read_mmap_data_clogan(const char *path_dirs) {
     if (buffer_type == LOGAN_MMAP_MMAP) {
+        printf_clogan("read_mmap_data_clogan");
         unsigned char *temp = _logan_buffer;
         unsigned char *temp2 = NULL;
         char i = *temp;
+        printf_clogan("%c", i);
         if (LOGAN_MMAP_HEADER_PROTOCOL == i) {
             temp++;
             char len_array[] = {'\0', '\0', '\0', '\0'};
             len_array[0] = *temp;
+            printf_clogan("%d\n", *temp);
             temp++;
             len_array[1] = *temp;
+
+
             adjust_byteorder_clogan(len_array);
             int *len_p = (int *) len_array;
             temp++;
@@ -131,13 +136,15 @@ void read_mmap_data_clogan(const char *path_dirs) {
             printf_clogan("read_mmapdata_clogan > path's json length : %d\n", len);
 
             if (len > 0 && len < 1024) {
+                printf_clogan("header data");
                 temp += len;
                 i = *temp;
                 if (LOGAN_MMAP_TAIL_PROTOCOL == i) {
                     char dir_json[len];
                     memset(dir_json, 0, len);
                     memcpy(dir_json, temp2, len);
-                    printf_clogan("dir_json %s\n", dir_json);
+                    printf_clogan("dir_json: ");
+                    printf_clogan(dir_json);
                     cJSON *cjson = cJSON_Parse(dir_json);
 
                     if (NULL != cjson) {
@@ -240,6 +247,8 @@ clogan_init(const char *cache_dirs, const char *path_dirs, int max_file, const c
 
     strcat(cache_path, LOGAN_CACHE_FILE);
 
+    printf_clogan(cache_path);
+
     size_t dirLength = strlen(path_dirs);
 
     isAddDivede = 0;
@@ -266,6 +275,8 @@ clogan_init(const char *cache_dirs, const char *path_dirs, int max_file, const c
     makedir_clogan(_dir_path); //创建缓存目录,如果初始化失败,注意释放_dir_path
 
     int flag = LOGAN_MMAP_FAIL;
+    printf_clogan("_logan_buffer: ", _logan_buffer);
+    printf_clogan("_cache_buffer_buffer: ", _cache_buffer_buffer);
     if (NULL == _logan_buffer) {
         if (NULL == _cache_buffer_buffer) {
             flag = open_mmap_file_clogan(cache_path, &_logan_buffer, &_cache_buffer_buffer);
@@ -385,6 +396,7 @@ int clogan_open(const char *pathname) {
     }
 
     if (NULL != logan_model) { //回写到日志中
+        printf_clogan("回写到日志中");
         if (logan_model->total_len > LOGAN_WRITEPROTOCOL_HEAER_LENGTH) {
             clogan_flush();
         }
@@ -687,7 +699,7 @@ clogan_write(int flag, char *log, long long local_time, char *thread_name, long 
         return back;
     }
 
-    if(logan_model->file_len > max_file_len) {
+    if (logan_model->file_len > max_file_len) {
         printf_clogan("clogan_write > beyond max file , cant write log\n");
         back = CLOAGN_WRITE_FAIL_MAXFILE;
         return back;
