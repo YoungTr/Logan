@@ -44,6 +44,7 @@ construct_json_data_clogan(char *log, int flag, long long local_time, char *thre
     map = create_json_map_logan();
     if (NULL != root) {
         if (NULL != map) {
+            // {"c":"clogan header","f":1,"l":1631152292481,"n":"clogan","i":1,"m":true}
             add_item_string_clogan(map, log_key, log);
             add_item_number_clogan(map, flag_key, (double) flag);
             add_item_number_clogan(map, localtime_key, (double) local_time);
@@ -52,6 +53,8 @@ construct_json_data_clogan(char *log, int flag, long long local_time, char *thre
             add_item_bool_clogan(map, ismain_key, is_main);
             inflate_json_by_map_clogan(root, map);
             char *back_data = cJSON_PrintUnformatted(root);
+            printf_clogan("back_data");
+            printf_clogan(back_data);
             construct_data = (Construct_Data_cLogan *) malloc(sizeof(Construct_Data_cLogan));
 
             if (NULL != construct_data) {

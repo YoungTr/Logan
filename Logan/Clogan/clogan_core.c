@@ -122,7 +122,6 @@ void read_mmap_data_clogan(const char *path_dirs) {
             temp++;
             char len_array[] = {'\0', '\0', '\0', '\0'};
             len_array[0] = *temp;
-            printf_clogan("%d\n", *temp);
             temp++;
             len_array[1] = *temp;
 
@@ -148,8 +147,8 @@ void read_mmap_data_clogan(const char *path_dirs) {
                     cJSON *cjson = cJSON_Parse(dir_json);
 
                     if (NULL != cjson) {
-                        cJSON *dir_str = cJSON_GetObjectItem(cjson,
-                                                             LOGAN_VERSION_KEY);  //删除json根元素释放
+                        cJSON *dir_str = cJSON_GetObjectItem(cjson, LOGAN_VERSION_KEY);  //删除json根元素释放
+                        printf_clogan("version:");
                         cJSON *path_str = cJSON_GetObjectItem(cjson, LOGAN_PATH_KEY);
                         if ((NULL != dir_str && cJSON_Number == dir_str->type &&
                              CLOGAN_VERSION_NUMBER == dir_str->valuedouble) &&
@@ -168,6 +167,8 @@ void read_mmap_data_clogan(const char *path_dirs) {
                             memcpy(file_path, path_dirs, dir_len);
                             strcat(file_path, path_str->valuestring);
                             temp++;
+                            printf_clogan("file_path");
+                            printf_clogan(file_path);
                             write_mmap_data_clogan(file_path, temp);
                         }
                         cJSON_Delete(cjson);
@@ -356,6 +357,7 @@ void add_mmap_header_clogan(char *content, cLogan_model *model) {
 
 /**
  * 确立最后的长度指针位置和最后的写入指针位置
+ * 0x01[][][][](内容长度4字节)
  */
 void restore_last_position_clogan(cLogan_model *model) {
     unsigned char *temp = model->last_point;
@@ -574,6 +576,7 @@ void insert_header_file_clogan(cLogan_model *loganModel) {
         temp_model.total_len = 0;
         temp_model.last_point = temp_memory;
         restore_last_position_clogan(&temp_model);
+        // 压缩
         clogan_zlib_compress(&temp_model, data->data, data->data_len);
         clogan_zlib_end_compress(&temp_model);
         update_length_clogan(&temp_model);
